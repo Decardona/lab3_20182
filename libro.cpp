@@ -46,24 +46,31 @@ void Libro::alquiler()
 
 string Libro::consultar_literatura(char l)
 {
+    string retorn="";
     switch (l){
     case 'L':
-        return "Literatura";
+        retorn = "Literatura";
+        break;
 
     case 'C':
-        return "Ciencias";
+        retorn = "Ciencias";
+        break;
 
     case 'G':
-        return "Geografia";
+        retorn =  "Geografia";
+        break;
 
     case 'A':
-        return "Arte";
+        retorn =  "Arte";
+        break;
 
     case 'E':
-        return "Enciclopedia";
+        retorn =  "Enciclopedia";
+        break;
 
     case 'D':
-        return "Diccionario";
-
+        retorn =  "Diccionario";
+        break;
     }
+    return retorn;
 }
