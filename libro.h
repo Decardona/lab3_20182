@@ -22,6 +22,7 @@ public:
     void cambiar_materia(char m);
     void alquiler();
     string consultar_literatura(char l);
+    bool esta_disponible(string _libro);
 };
 
 

@@ -16,13 +16,13 @@ Movie::Movie(int _id, int _nvotos, float _rating, string _nombre, string _genero
     this->rating_promedio = _rating;
 }
 
-Movie::Movie(const Movie &obj)
+/*Movie::Movie(const Movie &obj)
 {
     this->id = obj.id;
     this->nombre = obj.nombre;
     this->genero = obj.genero;
     this->director = obj.director;
-}
+}*/
 
 void Movie::setIdentificador(int _id)
 {
@@ -51,10 +51,12 @@ void Movie::setDirector(string _director)
 
 void Movie::setRating_pro(float rating)
 {
+       float auxiliar = 0.0f;
     if (this->getNvotos()==1){
         this->rating_promedio = rating;
     }else{
-        this->rating_promedio = (this->getRating()+rating)/2;
+        auxiliar = rating + this->getRating();
+        this->rating_promedio = auxiliar/2;
     }
     this->agregar_voto();
 

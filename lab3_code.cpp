@@ -46,8 +46,7 @@
 
 
 #include "libro.h"
-#include "movie.h"
-#include <vector>
+#include "store.h"
 
 using namespace std;
 
@@ -58,72 +57,6 @@ bool buscar(Libro lb, string autor, string nombre){
         return false;
 }
 
-int buscar_movie(vector<Movie> &vector, string nomb){
-    int retorno = 0;
-    unsigned int i = 0;
-    if (vector.size() == 0)
-        retorno = 0;
-    else{
-        do{
-            if (vector.at(i).getNombre()==nomb){
-                retorno = i;
-                break;
-            }
-            else if (i<=vector.size())
-                i++;
-        }while(i<=vector.size());
-    }
-    return retorno;
-}
-
-void ver_peliculas(vector<Movie> &arreglo){
-    for (unsigned int i=0; i<arreglo.size(); i++){
-        cout<<"Pelcula numero "<<i<<endl;
-        cout<<"Codigo: "<<arreglo.at(i).getId()<<endl;
-        cout<<"Nombre: "<<arreglo.at(i).getNombre()<<endl;
-        cout<<"Votos: "<<arreglo.at(i).getNvotos()<<endl;
-        cout<<"Promedio de votos: "<<arreglo.at(i).getRating()<<endl;
-    }
-}
-
-void recomendar_peliculas(vector<Movie> &arreglo){
-    unsigned int size = arreglo.size(), nvotos=0;
-    float rank=0.0f;
-    if (size>0){
-        if (size>=3){
-            unsigned int mas_votadas[3] = {0,0,0};
-            unsigned int mejores_calificadas[3] = {0,0,0};
-            for (unsigned int i=1; i<=size; i++){
-                nvotos = arreglo.at(i).getNvotos();
-                for (unsigned int j=0; j<3; j++){
-                    if (mas_votadas[j]<nvotos){
-                        mas_votadas[j] = i;
-                        break;
-                    }
-                }
-            }
-            for (unsigned int i=0; i<=3; i++){
-                rank = arreglo.at(mas_votadas[i]).getRating();
-                for (unsigned int j=0; j<3; j++){
-                   if (mejores_calificadas[j]<rank){
-                       mejores_calificadas[j] = mas_votadas[i];
-                       break;
-                   }
-                }
-            }
-            cout<<"Podemos recomendarte las siguientes peliculas "<<endl;
-            for (unsigned int i=0; i<3; i++){
-                int idx = mejores_calificadas[i];
-                cout<<"En la posicion "<<i<<" la pelicula "<<arreglo.at(idx).getNombre()<<" con "<<arreglo.at(idx).getRating()<<" en "<<arreglo.at(idx).getNvotos()<<" usuarios que calificaron"<<endl;
-            }
-        }
-        else{
-                cout<<"Hay muy pocas peliculas, no podemos garantizarte una buena pelicula. Solo hay "<<size<<" peliculas. Revisalas si quieres"<<endl;
-            }
-    }else{
-        cout<<"No tenemos peliculas. Lo sentimos"<<endl;
-    }
-}
 
 
 int main(){
@@ -131,7 +64,7 @@ int main(){
     int codigo, opcion=0;
     string nombre, autor;
     char materia;
-    vector<Movie> vmovies;
+    Store videotienda("Video_Info2");
     do{
         cout <<"Laboratorio N3 de informatica 2. Bienvenido"<<endl;
         cout<<"----Menu----"<<endl<<"Elija cualquiera de las siguientes opciones"<<endl;
@@ -166,7 +99,8 @@ int main(){
         case 2:
             do{
                 cout<<"Bienvenido a la opcion de Movie"<<endl;
-                cout<<"1) Calificar peliculas |  2) Recomiendame una pelicula |  0) Salir "<<endl;
+                cout<<"1) Calificar peliculas |  2) Recomiendame una pelicula | 3) Ver todas las peliculas "<<endl;
+                cout<<"4) Buscar si existe disponible libro de esta pelicula |  0) Salir "<<endl;
                 cin>>opcion;
                 switch (opcion) {
                     case 1:
@@ -177,13 +111,13 @@ int main(){
                         cin>>nom;
                         cout<<"Ingresa tu calificacion de esta pelicula entre 0 y 5: ";
                         cin>>calificacion;
-                        index_movie = buscar_movie(vmovies, nom);
+                        index_movie = videotienda.buscar_movie(nom);
 
                         if (calificacion>5 or calificacion<0){
                             cout<<"Valor de calificacion incorrecto"<<endl;
                         }else{
-                            if (index_movie>0){
-                                vmovies.at(index_movie).setRating_pro(calificacion);
+                            if (index_movie>=0){
+                                videotienda.calificar_pelicula(calificacion,index_movie);
                             }else{
                                 cout<<"Al parecer tu pelicula no se ha agregado a nuestro sistema. Vamos a agregarla"<<endl;
                                 cout<<"Identificador de la pelicula: ";
@@ -192,15 +126,18 @@ int main(){
                                 cin>>genero;
                                 cout<<"Director de la pelicula: ";
                                 cin>>director;
-                                Movie m(id,1,calificacion,nom,genero,director);
-                                vmovies.push_back(m);
+                                videotienda.crear_pelicula(id,calificacion,nom,genero,director);
                                 cout<<"Listo hemos agregado la pelicula con tu calificacion"<<endl<<endl;
                             }
                         }
                         break;
                     }
                     case 2:
-                        ver_peliculas(vmovies);
+                        videotienda.recomendar_peliculas();
+                    break;
+                    case 3:
+
+                        videotienda.ver_peliculas();
                     break;
                 }
            }while(opcion>0);
