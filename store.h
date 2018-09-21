@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "movie.h"
+#include  "libro.h"
 
 using namespace std;
 
@@ -11,6 +12,7 @@ class Store
 {
     string nombre_tienda;
     vector<Movie> peliculas;
+    vector<Libro> lib;
 
 public:
     Store(string nombret);
@@ -19,6 +21,8 @@ public:
     void calificar_pelicula(float rating, unsigned int posicion);
     void ver_peliculas();
     void recomendar_peliculas();
+    void agregar_libro(Libro lb);
+    void verificar_libro();
 };
 
 #endif // STORE_H

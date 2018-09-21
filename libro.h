@@ -10,7 +10,7 @@ private:
     string nombre, autor;
     char materia;
     bool disponible;
-    friend bool buscar(Libro lib, string autor, string nombre);
+    friend bool buscar(Libro lib);
 
 
 public:
@@ -23,6 +23,7 @@ public:
     void alquiler();
     string consultar_literatura(char l);
     bool esta_disponible(string _libro);
+    friend class Store;
 };
 
 

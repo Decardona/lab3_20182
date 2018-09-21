@@ -50,7 +50,12 @@
 
 using namespace std;
 
-bool buscar(Libro lb, string autor, string nombre){
+bool buscar(Libro lb){
+    string autor, nombre;
+    cout<<"Digite un nombre de libro para buscar: ";
+    cin>>nombre;
+    cout<<"Digite un nombre de autor de libro: ";
+    cin>>autor;
     if (lb.nombre == nombre && lb.autor == autor)
         return true;
     else
@@ -67,13 +72,13 @@ int main(){
     Store videotienda("Video_Info2");
     do{
         cout <<"Laboratorio N3 de informatica 2. Bienvenido"<<endl;
-        cout<<"----Menu----"<<endl<<"Elija cualquiera de las siguientes opciones"<<endl;
-        cout<<"1) Opciones de la clase libro 2) Opciones de la clase Movie 0) Salir: ";
+        cout<<"----Menu----"<<endl<<"Elija cualquiera de las siguientes opciones"<<endl<<endl;
+        cout<<"1) Opciones de la clase libro 2) Opciones de la clase Movie 0) Salir: "<<endl;
         cin>>opcion;
         switch (opcion) {
             case 1:
             {
-            cout<<"Bienvenido a la biblioteca info 2"<<endl;
+            cout<<endl<<"Bienvenido a la biblioteca info 2"<<endl;
             cout<<"Codigo para el libro: ";
             cin>>codigo;
             cout<<"Nombre del libro: ";
@@ -85,12 +90,10 @@ int main(){
 
             Libro lb1(codigo, nombre, autor, materia, true);
             lb1.ver_informacion();
+            videotienda.agregar_libro(lb1);
 
-            cout<<"Digite un nombre de libro para buscar: ";
-            cin>>nombre;
-            cout<<"Digite un nombre de autor de libro: ";
-            cin>>autor;
-            if (buscar(lb1, autor, nombre))
+
+            if (buscar(lb1))
                 cout<<"El libro si existe"<<endl;
             else
                 cout<<"El libro no existe. Lo sentimos"<<endl;
@@ -98,9 +101,9 @@ int main(){
             }
         case 2:
             do{
-                cout<<"Bienvenido a la opcion de Movie"<<endl;
+                cout<<endl<<"Bienvenido a la opcion de Movie"<<endl;
                 cout<<"1) Calificar peliculas |  2) Recomiendame una pelicula | 3) Ver todas las peliculas "<<endl;
-                cout<<"4) Buscar si existe disponible libro de esta pelicula |  0) Salir "<<endl;
+                cout<<"4) Buscar si existe libro disponible en la tienda |  0) Salir "<<endl;
                 cin>>opcion;
                 switch (opcion) {
                     case 1:
@@ -127,7 +130,7 @@ int main(){
                                 cout<<"Director de la pelicula: ";
                                 cin>>director;
                                 videotienda.crear_pelicula(id,calificacion,nom,genero,director);
-                                cout<<"Listo hemos agregado la pelicula con tu calificacion"<<endl<<endl;
+                                cout<<"Listo hemos agregado la pelicula con tu calificacion"<<endl;
                             }
                         }
                         break;
@@ -136,9 +139,12 @@ int main(){
                         videotienda.recomendar_peliculas();
                     break;
                     case 3:
-
                         videotienda.ver_peliculas();
                     break;
+                    case 4:
+                        videotienda.verificar_libro();
+                    break;
+
                 }
            }while(opcion>0);
            break;
