@@ -12,7 +12,7 @@ class Movie
 public:
     Movie();
     Movie(int _id, int _nvotos, float _rating, string _nombre, string _genero, string _director);
-    //Movie(const Movie &obj);
+    Movie(const Movie &obj);
     void setIdentificador(int _id);
     void setNvotos(int _nvotos);
     void setNombre(string _nombre);

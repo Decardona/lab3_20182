@@ -16,13 +16,15 @@ Movie::Movie(int _id, int _nvotos, float _rating, string _nombre, string _genero
     this->rating_promedio = _rating;
 }
 
-/*Movie::Movie(const Movie &obj)
+Movie::Movie(const Movie &obj)
 {
     this->id = obj.id;
     this->nombre = obj.nombre;
     this->genero = obj.genero;
     this->director = obj.director;
-}*/
+    this->nvotos = obj.nvotos;
+    this->rating_promedio = obj.rating_promedio;
+}
 
 void Movie::setIdentificador(int _id)
 {
