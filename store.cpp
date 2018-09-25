@@ -55,37 +55,27 @@ void Store::ver_peliculas()
 
 void Store::recomendar_peliculas()
 {
-    unsigned int size = peliculas.size(), j=0, ida=0; int nvotos=0, aux=0;
-    float rank=0.0f;
+    unsigned int size = peliculas.size(), ida=0; int nvotos=0;
     if (size>0){
         if (size>=3){
-            unsigned int mas_votadas[3] = {0,0,0};
-            unsigned int mejores_calificadas[3] = {0,0,0};
+            unsigned int mas_votadas[2] = {0,0};
+            unsigned int mejores_calificadas[2] = {0,0};
             for (unsigned int i=1; i<size; i++){
                 nvotos = peliculas.at(i).getNvotos();
-                for (j=0; j<3; j++){
-                    aux = peliculas.at(mas_votadas[j]).getNvotos();
-                    if (aux<nvotos){
-                        ida = mas_votadas[j];
-                        mas_votadas[j] = i;
-                        if (j<=2){
-                            mas_votadas[j+1]=ida;
-                        }
-                        j=3;
-                    }
+                if (nvotos>peliculas.at(mas_votadas[0]).getNvotos()){
+                    ida = mas_votadas[0];
+                    mas_votadas[0] = i;
+                    mas_votadas[1] = ida;
+                }else if (nvotos>peliculas.at(mas_votadas[1]).getNvotos() and mas_votadas[1] != i){
+                    mas_votadas[1] = i;
                 }
             }
-            j=0;
-            for (unsigned int i=0; i<3; i++){
-                rank = peliculas.at(mas_votadas[i]).getRating();
-                j = i+1;
-                if (j==3)
-                    j=2;
-                if (rank<peliculas.at(mas_votadas[j]).getRating()){
-                    mejores_calificadas[j] = mas_votadas[i];
-                    mejores_calificadas[i] = mas_votadas[j];
-                }
-
+            if (peliculas.at(mas_votadas[1]).getRating()>peliculas.at(mas_votadas[0]).getRating()){
+                mejores_calificadas[0] = mas_votadas[1];
+                mejores_calificadas[1] = mas_votadas [0];
+            }else{
+                mejores_calificadas[0] = mas_votadas[0];
+                mejores_calificadas[1] = mas_votadas [1];
             }
             cout<<"Podemos recomendarte las siguientes peliculas "<<endl;
             for (unsigned int i=0; i<2; i++){

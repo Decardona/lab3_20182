@@ -5,7 +5,7 @@
 *  Plazo máximo para enviar enlace para clonar el repositorio: Septiembre 10/2018 11:00pm
 *  Estudiante1: Diego Esteban Cardona Bedoya
 *  Estudiante2: Victor Parra Julio
-*  Fecha del ultimo Commit en GitHub: 23:00
+*  Fecha del ultimo Commit en GitHub: 24/09/2018
 *
 * 1. Diseñe e implemente una clase llamada "Libro" que tiene los siguientes atributos privados:
 *	Un atributo de tipo entero para el codigo de catalogo del libro
@@ -74,6 +74,7 @@ int main(){
         cout <<"Laboratorio N3 de informatica 2. Bienvenido"<<endl;
         cout<<"----Menu----"<<endl<<"Elija cualquiera de las siguientes opciones"<<endl<<endl;
         cout<<"1) Opciones de la clase libro 2) Opciones de la clase Movie 0) Salir: "<<endl;
+        cout<<"Tu opcion -> ";
         cin>>opcion;
         switch (opcion) {
             case 1:
@@ -104,6 +105,7 @@ int main(){
                 cout<<endl<<"Bienvenido a la opcion de Movie"<<endl;
                 cout<<"1) Calificar peliculas |  2) Recomiendame una pelicula | 3) Ver todas las peliculas "<<endl;
                 cout<<"4) Buscar si existe libro disponible en la tienda |  0) Salir "<<endl;
+                cout<<"Tu opcion -> ";
                 cin>>opcion;
                 switch (opcion) {
                     case 1:
